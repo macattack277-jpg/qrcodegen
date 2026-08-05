@@ -8,6 +8,7 @@ from tkinter import filedialog
 import tkinter as tk
 import qrcode as qr
 import shutil
+import pyperclip
 
 
 
@@ -38,18 +39,10 @@ def displayqr(data):
     global box_size1
     global border1
 
-    print(box_size1.get())
-    print(border1.get())
 
-    # Use the settings 
-    qrcode = qr.QRCode(
-    box_size=box_size1.get(),
-    border=border1.get(),
-    )
-
-
-    # Make the QR code
-    qrcode = qr.make(data)
+    
+    # Make the QR code with the extra settings
+    qrcode = qr.make(data, box_size=box_size1.get(), border=border1.get())
     img = qrcode.save("/tmp/qrcode.png")
     img2 = photo(file="/tmp/qrcode.png")
     qrcodewidget = tk.Label(root, image=img2)
@@ -102,9 +95,12 @@ def specialsettings():
 
 
     
-            
-
-    
+def clipboard():
+    try:
+        pyperclip.copy("/tmp/qrcode.png")
+    except:
+        errorlabel = tk.Label(root, text="There was an error.")
+        errorlabel.pack()
     
 
 # Remove the QR code from /tmp when closing the app
@@ -146,6 +142,10 @@ saveqrbutton.pack()
 # Button to open the extra settings
 extrasettingsbutton = tk.Button(root, text="Extra settings", font=("Arial", 16), command=lambda: specialsettings())
 extrasettingsbutton.pack()
+
+# Button to copy to clipboard
+copybutton = tk.Button(root, text="Copy to clipboard", font=("Arial", 16), command=clipboard)
+copybutton.pack()
 
 
 
