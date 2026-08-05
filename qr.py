@@ -9,6 +9,19 @@ import tkinter as tk
 import qrcode as qr
 import shutil
 import pyperclip
+import platform
+
+
+# Specific for Linux users: use the correct clipboard
+# depending on what runtime thing they're using,
+# for MacOS and Windows users it should autodetect it
+if platform.system() == "Linux":
+    if os.getenv("XDG_SESSION_TYPE") == "wayland":
+        pyperclip.set_clipboard('wl-clipboard')
+    elif os.getenv("XDG_SESSION_TYPE") == "x11":
+        pyperclip.set_clipboard('xclip')
+    else:
+        pass
 
 
 
@@ -94,13 +107,12 @@ def specialsettings():
     border_setting.pack()
 
 
-    
-def clipboard():
-    try:
-        pyperclip.copy("/tmp/qrcode.png")
-    except:
-        errorlabel = tk.Label(root, text="There was an error.")
-        errorlabel.pack()
+
+
+def copytoclipboard():
+    pyperclip.copy("/tmp/qrcode.png")
+
+
     
 
 # Remove the QR code from /tmp when closing the app
@@ -143,8 +155,9 @@ saveqrbutton.pack()
 extrasettingsbutton = tk.Button(root, text="Extra settings", font=("Arial", 16), command=lambda: specialsettings())
 extrasettingsbutton.pack()
 
-# Button to copy to clipboard
-copybutton = tk.Button(root, text="Copy to clipboard", font=("Arial", 16), command=clipboard)
+
+# Button to copy the QRcode to clipboard
+copybutton = tk.Button(root, text="Copy to clipboard", font=("Arial", 16), command=copytoclipboard)
 copybutton.pack()
 
 
