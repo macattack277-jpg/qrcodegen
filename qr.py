@@ -80,9 +80,12 @@ def specialsettings():
 
     # This should make it so that the user can only input numbers ideally
     def validate_numbers(P):
-        if P.isdigit() or P is None:
-            return True
-        return False
+        try:
+            if P == "":
+                return True
+            float(P)
+        except: return False
+        return True
 
     vcmd = settings_window.register(validate_numbers)
 
