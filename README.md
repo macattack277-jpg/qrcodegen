@@ -9,6 +9,8 @@ In the directory you want to install the program:
 
 Then it's recommended that you create a virtual environment:
 
+`$: cd qrcodegen`
+
 `$: python3 -m venv .venv`
 
 `$: source ./.venv/bin/activate`
@@ -19,7 +21,7 @@ Install the dependencies:
 
 Now to run the program:
 
-`$ python3 qr.py`
+`$: python3 qr.py`
 
 # Usage:
 
