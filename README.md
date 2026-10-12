@@ -38,8 +38,3 @@ By clicking on 'Extra Settings' a new tab will open where you can specify the bo
 **Copying and pasting**
 
 To make things easier for you, you can click 'Copy to clipboard' to copy your generated QR code to your clipboard. You can then use your usual paste shortcut to paste the QR code.
-
-
-
-
-It's recommended that a virtual environment be used so that an isolated profile exists for this program's dependencies.
